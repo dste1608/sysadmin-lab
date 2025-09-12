@@ -1,1 +1,31 @@
+# Day 2 – Install AD DS and Create Domain
+
+## 🎯 Objective
+Install and configure Active Directory Domain Services (AD DS) on DC01 and create a new forest `lab.local`.
+
+## 🛠 Steps Completed
+1. Installed Windows Server 2022 Standard (Desktop Experience) on DC01.  
+   - **Why:** Provides GUI and role support for easier lab management.  
+2. Assigned static IP `192.168.1.10`.  
+   - **Why:** Domain controllers require fixed IPs for reliability.  
+3. Renamed server to `DC01`.  
+   - **Why:** Clear naming convention for easier management.  
+4. Installed AD DS role in Server Manager.  
+   - **Why:** Enables Active Directory services.  
+5. Promoted server to domain controller with new forest `lab.local`.  
+   - **Why:** Created the lab’s root domain and forest.  
+6. Verified ADUC shows `lab.local` and default containers.  
+   - **Why:** Confirms AD DS is operational.  
+7. Checked DNS SRV records in `_msdcs.lab.local`.  
+   - **Why:** Ensures AD-integrated DNS is working for domain logons.  
+
+## 📸 Screenshots
+- [ ] Server Manager role installation  
+- [ ] ADUC with lab.local  
+- [ ] DNS zone with SRV records  
+
+## 🧠 Reflection
+- Learned the core process of standing up AD DS.  
+- DNS integration is critical — without it, domain services fail.  
+- Tomorrow: Configure DNS zones and test name resolution.
 
