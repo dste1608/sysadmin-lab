@@ -1,0 +1,31 @@
+# Day 3 – Configure and Verify DNS
+
+## 🎯 Objective
+Configure and validate DNS on DC01 for the `lab.local` domain, ensuring both AD-integrated and external name resolution.
+
+## 🛠 Steps Completed
+1. Opened DNS Manager on DC01.  
+   - **Why:** Central place for DNS zone/record management.  
+2. Verified `lab.local` forward lookup zone exists and SRV records present.  
+   - **Why:** AD requires SRV records to locate domain controllers.  
+3. Created reverse lookup zone for `192.168.1.x`.  
+   - **Why:** Enables IP → hostname lookups, useful in troubleshooting/logs.  
+4. Added A record: `fileserver.lab.local → 192.168.1.50` with PTR.  
+   - **Why:** Test record for forward/reverse resolution.  
+5. Configured DNS Forwarders to `8.8.8.8`.  
+   - **Why:** Allows internet resolution for lab clients.  
+6. On CLIENT01, ran `nslookup` tests:  
+   - `fileserver.lab.local → 192.168.1.50`  
+   - `192.168.1.50 → fileserver.lab.local`  
+   - `google.com → external IPs`  
+   - **Why:** Validates internal + external DNS resolution is working.  
+
+## 📸 Screenshots
+- [ ] DNS Manager showing forward lookup zone  
+- [ ] Reverse lookup zone  
+- [ ] CLIENT01 `nslookup` outputs  
+
+## 🧠 Reflection
+- Learned DNS is the backbone of AD.  
+- Misconfigured DNS = broken logins, policies, or domain joins.  
+- Tomorrow: Configure DHCP and integrate it with AD DNS.
