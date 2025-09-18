@@ -1,0 +1,32 @@
+# Day 4 – Configure DHCP and Test Client Assignment
+
+## 🎯 Objective
+Install and configure DHCP on DC01 to automatically assign IPs and confirm DNS integration.
+
+## 🛠 Steps Completed
+1. Installed DHCP role on DC01 via Server Manager.  
+   - **Why:** Provides automated IP addressing service.  
+2. Authorized DHCP server in AD.  
+   - **Why:** Prevents rogue DHCP servers on the domain.  
+3. Created scope "LabScope" with IP range 10.10.10.100-10.10.10.200.  
+   - **Why:** Defines pool of addresses clients can use.  
+4. Configured gateway (10.10.10.1) and DNS (10.10.10.10).  
+   - **Why:** Ensures clients can reach firewall + domain controller.  
+5. Excluded reserved IPs (.1 for OPNsense, .10 for DC01).  
+   - **Why:** Avoids conflicts with static servers.  
+6. Activated the DHCP scope.  
+   - **Why:** Scope must be active to serve leases.  
+7. On CLIENT01, confirmed IP assignment via `ipconfig /all`.  
+   - **Why:** Proves DHCP is functioning end-to-end.  
+8. Verified CLIENT01 registered in DNS under lab.local.  
+   - **Why:** Ensures domain name resolution works for AD clients.  
+
+## 📸 Screenshots
+- [ ] DHCP role installation in Server Manager  
+- [ ] Scope settings in DHCP Manager  
+- [ ] CLIENT01 `ipconfig /all` showing DHCP lease  
+- [ ] DNS Manager with CLIENT01 A record  
+
+## 🧠 Reflection
+- DHCP automation saves time and reduces human error in IP management.  
+- Integration with DNS is key for AD functionality.
