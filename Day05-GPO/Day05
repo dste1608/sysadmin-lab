@@ -1,0 +1,57 @@
+# Day 6 – Group Policy Basics (Desktop Wallpaper)
+
+## 🎯 Objective
+Create and apply a Group Policy Object (GPO) to enforce a desktop wallpaper on CLIENT01, demonstrating centralized management from DC01.
+
+---
+
+## 🛠 Steps Completed
+
+1. **Created Shared Folder on DC01**
+   - Folder: `C:\WallpaperShare`
+   - File: `img7.jpg`
+   - Shared as `\\DC01\Wallpapers`
+   - Permissions: Read access for `Domain Users`
+   - **Why:** Central repository so all clients can access the wallpaper.
+
+2. **Created and Linked a GPO**
+   - Name: `Lab Desktop Policy`
+   - Linked at: `lab.local` domain root
+   - **Why:** Ensures policy applies to all users in the domain.
+
+3. **Configured GPO Settings**
+   - Path: `User Configuration → Policies → Administrative Templates → Desktop → Desktop → Desktop Wallpaper`
+   - Wallpaper path: `\\DC01\Wallpapers\img7.jpg`
+   - Style: Fill
+   - **Why:** Centralized enforcement of desktop appearance.
+
+4. **Applied Policy to CLIENT01**
+   - Ran `gpupdate /force` on CLIENT01
+   - Logged off and back on
+   - Wallpaper updated successfully
+   - **Why:** Verified GPO applied to a domain-joined client.
+
+5. **Verified GPO Application**
+   - Ran `gpresult /r` on CLIENT01
+   - Confirmed `Lab Desktop Policy` applied
+   - **Why:** Confirms GPO delivery and application.
+
+---
+
+## 📸 Screenshots
+- [ ] `C:\WallpaperShare` folder with wallpaper file
+- [ ] Sharing tab showing `Domain Users: Read` permissions
+- [ ] Group Policy Management Console with `Lab Desktop Policy`
+- [ ] GPO editor showing wallpaper UNC path
+- [ ] CLIENT01 desktop with applied wallpaper
+- [ ] `gpresult /r` output showing applied policy
+
+---
+
+## 🧠 Reflection
+- Learned how to use Group Policy Management to control client desktops.
+- Discovered that black screens result from unreachable wallpaper paths; fixed by hosting the wallpaper on a shared folder with proper permissions.
+- Validated centralized management by forcing CLIENT01 to use a specific wallpaper from DC01.
+- Takeaway: **For GPOs that depend on files, always use UNC paths (`\\server\share`) and confirm permissions.**
+
+---
