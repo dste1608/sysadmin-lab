@@ -1,0 +1,56 @@
+# Day 6 – Password Policies via Group Policy
+
+## 🎯 Objective
+Configure and enforce domain-wide password complexity, length, and expiration rules using Group Policy.
+
+---
+
+## 🛠 Steps Completed
+
+1. **Opened Group Policy Management on DC01**
+   - Navigated: `Forest: lab.local → Domains → lab.local`.
+   - Edited the **Default Domain Policy**.
+   - **Why:** Password settings must be applied at the domain root for them to affect all users.
+
+2. **Configured Password Policies**
+   - Path: `Computer Configuration → Policies → Windows Settings → Security Settings → Account Policies → Password Policy`.
+   - Settings applied:
+     - Enforce password history = 5  
+     - Maximum password age = 30 days  
+     - Minimum password age = 1 day  
+     - Minimum password length = 8  
+     - Complexity requirements = Enabled  
+   - **Why:** Enforces stronger password hygiene and prevents weak/reused passwords.
+
+3. **Forced Policy Update**
+   - On CLIENT01: ran `gpupdate /force`.  
+   - Logged off and back on.  
+   - **Why:** Ensured immediate application of updated domain password rules.
+
+4. **Tested Password Changes**
+   - Attempted to reuse an old password → rejected.  
+   - Attempted to use a simple password (e.g., "password") → rejected.  
+   - **Why:** Confirmed policy enforcement is active on domain accounts.
+
+5. **Verified Policy**
+   - Ran `gpresult /r` on CLIENT01.  
+   - **Observation:** Password rules were enforced, but Default Domain Policy was not listed under applied GPOs.  
+   - **Why:** Password policies are stored in the **Default Domain Policy GPO**, but they apply at the domain level through **secedit / local security policy**, so they don’t always appear in `gpresult`. This is expected behavior.
+
+---
+
+## 📸 Screenshots
+- [ ] Group Policy Management Console showing Default Domain Policy  
+- [ ] GPO editor with Password Policy settings configured  
+- [ ] CLIENT01 password change attempt failing (weak/reused password)  
+- [ ] `gpupdate /force` result on CLIENT01  
+
+---
+
+## 🧠 Reflection
+- Learned that **domain password policies must be set in the Default Domain Policy** for them to take effect.  
+- Confirmed enforcement through practical testing on CLIENT01, even though `gpresult` did not explicitly list the policy.  
+- Key takeaway: **Password policy is enforced at the domain level, not per-user GPO reporting.** This means the rules work even if they don’t appear in gpresult output.  
+- This is a real-world sysadmin skill: knowing where to configure password rules and how to test them is more important than what the reporting tools show.
+
+---
